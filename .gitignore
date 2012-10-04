@@ -1,0 +1,7 @@
+.vim
+*.sw[a-z]
+*.o
+ImageProcessor
+moc_*.cpp
+qrc_*.cpp
+Makefile

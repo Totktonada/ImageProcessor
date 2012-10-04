@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>icons/application-exit.svg</file>
+    <file>icons/document-open.svg</file>
+    <file>icons/document-save-as.svg</file>
+    <file>icons/document-save.svg</file>
+    <file>icons/window-close.svg</file>
+    <file>icons/edit-undo.svg</file>
+    <file>icons/edit-redo.svg</file>
+    <file>icons/help-about.svg</file>
+    <file>icons/qt-logo.svg</file>
+</qresource>
+</RCC>

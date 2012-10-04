@@ -1,0 +1,15 @@
+#ifndef CONSTANTS_HPP_SENTRY
+#define CONSTANTS_HPP_SENTRY
+
+#define STRENGTH_RED   0.2125
+#define STRENGTH_GREEN 0.7154
+#define STRENGTH_BLUE  0.0721
+
+#define COLORS 256
+
+#define CMIN   0
+#define CMAX   255
+#define FCMIN  0.0
+#define FCMAX  255.0
+
+#endif /* CONSTANTS_HPP_SENTRY */
