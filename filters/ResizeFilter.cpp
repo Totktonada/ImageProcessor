@@ -10,7 +10,7 @@ ResizeFilter::ResizeFilter(double aRatio)
 ResizeFilter::~ResizeFilter()
 {}
 
-QImage * ResizeFilter::filter(const QImage & source, QRect area) const
+QImage * ResizeFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();
@@ -25,7 +25,7 @@ QImage * ResizeFilter::filter(const QImage & source, QRect area) const
     {
         for (int x = area.x(); x < area.x() + area.width(); ++x)
         {
-            to[y * w + x] = getPixel(rgb, area, x, y, w, h);
+            to[y * w + x] = getPixel(rgb, x, y, w, h);
         }
     }
 
@@ -37,7 +37,7 @@ uint ResizeFilter::getWindowRadius() const
     return 1;
 }
 
-QRgb ResizeFilter::getPixel(const QRgb * rgb, QRect area,
+QRgb ResizeFilter::getPixel(const QRgb * rgb,
     uint x, uint y, uint w, uint h) const
 {
     /* All equations in new coordinates.

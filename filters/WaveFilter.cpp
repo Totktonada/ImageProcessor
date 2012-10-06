@@ -15,7 +15,7 @@ WaveFilter::WaveFilter(double aRadius, double aPeriod,
 WaveFilter::~WaveFilter()
 {}
 
-QImage * WaveFilter::filter(const QImage & source, QRect area) const
+QImage * WaveFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();
@@ -30,7 +30,7 @@ QImage * WaveFilter::filter(const QImage & source, QRect area) const
     {
         for (int x = area.x(); x < area.x() + area.width(); ++x)
         {
-            to[y * w + x] = getPixel(rgb, area, x, y, w, h);
+            to[y * w + x] = getPixel(rgb, x, y, w, h);
         }
     }
 
@@ -42,7 +42,7 @@ uint WaveFilter::getWindowRadius() const
     return (uint) radius + 1;
 }
 
-QRgb WaveFilter::getPixel(const QRgb * rgb, QRect area,
+QRgb WaveFilter::getPixel(const QRgb * rgb,
     uint x, uint y, uint w, uint h) const
 {
     /* New coordinates */

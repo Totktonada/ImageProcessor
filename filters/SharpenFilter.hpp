@@ -9,13 +9,13 @@ class QImage;
 
 class SharpenFilter : public Filter
 {
-    AverageSobelFilter sobel;
+    AverageSobelFilter * sobel;
 
 public:
     SharpenFilter();
     ~SharpenFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 };

@@ -22,7 +22,14 @@ void helpWrite()
 "First form write this help. Second simply process image with specified\n"
 "filters. Third runs GUI.\n"
 "\n"
-"Filters are:\n"
+"Filters are: { filter_action [area] }\n"
+"\n"
+"Area is \":X0xY0+W+H\", where\n"
+"    X0, Y0: uint, top-left corner coordinates\n"
+"    W, H: uint, positive, size of area\n"
+"    ':', 'x', '+': fixed symbols.\n"
+"\n"
+"Filter actions:\n"
 "    -l, --autolevels <fraction> <fraction>\n"
 "        fraction: double\n"
 "    -c, --autocontrast <fraction> <fraction>\n"
@@ -86,14 +93,22 @@ void processFilters(QImage *& image, QListIterator<Filter *> i)
         uint w = image->width();
         uint h = image->height();
 
-        if (! f->isApplicable(w, h))
+        if (f->getArea().isNull())
         {
-            fatal(QObject::tr("Too small image (%1x%2), pointed filter"
-                " not applicable").arg(w).arg(h));
+            f->setArea(QRect(QPoint(0, 0), QSize(w, h)));
         }
 
-        QRect area(QPoint(0, 0), QSize(w, h));
-        QImage * newImage = f->filter(*image, area);
+        if (! f->isApplicable(w, h))
+        {
+            QRect area = f->getArea();
+
+            fatal(QObject::tr("Too small image (%1x%2), pointed filter"
+                " with pointed area (%3x%4+%5+%6) not applicable")
+                .arg(w).arg(h).arg(area.x()).arg(area.y())
+                .arg(area.width()).arg(area.height()));
+        }
+
+        QImage * newImage = f->filter(*image);
 
         delete image;
         image = newImage;

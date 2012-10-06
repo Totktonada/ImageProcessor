@@ -13,7 +13,7 @@ SobelFilter::SobelFilter(Edge aEdge, WhatDetect aWhat)
 SobelFilter::~SobelFilter()
 {}
 
-QImage * SobelFilter::filter(const QImage & source, QRect area) const
+QImage * SobelFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();

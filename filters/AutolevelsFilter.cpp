@@ -22,7 +22,7 @@ AutolevelsFilter::AutolevelsFilter(double aSkipL, double aSkipR)
 AutolevelsFilter::~AutolevelsFilter()
 {}
 
-QImage * AutolevelsFilter::filter(const QImage & source, QRect area) const
+QImage * AutolevelsFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 

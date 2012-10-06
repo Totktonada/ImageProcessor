@@ -52,6 +52,9 @@ private:
     WaveFilter::Orientation getOrientation(QStringListIterator & i) const
         throw (BadArgsException);
 
+    QRect getArea(QStringListIterator & i) const
+        throw (BadArgsException);
+
     void processShortOption(QChar ch, QStringListIterator & i)
         throw (BadArgsException);
 

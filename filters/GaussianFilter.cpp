@@ -40,7 +40,7 @@ GaussianFilter::~GaussianFilter()
     delete[] colorCache;
 }
 
-QImage * GaussianFilter::filter(const QImage & source, QRect area) const
+QImage * GaussianFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();

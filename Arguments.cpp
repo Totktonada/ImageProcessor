@@ -254,10 +254,50 @@ WaveFilter::Orientation Arguments::getOrientation(
     }
 }
 
+QRect Arguments::getArea(QStringListIterator & i) const
+    throw (BadArgsException)
+{
+    if (!i.hasNext() || !i.peekNext().startsWith(':'))
+    {
+        return QRect();
+    }
+
+    QString str = i.next();
+    str.remove(0, 1); /* remove ':' */
+
+    QStringList xy_w_h = str.split('+');
+
+    if (xy_w_h.size() != 3)
+    {
+        throw BadArgsException("bad area");
+    }
+
+    QStringList x_y = xy_w_h.at(0).split('x');
+
+    if (x_y.size() != 2)
+    {
+        throw BadArgsException("bad area");
+    }
+
+    bool ok1, ok2, ok3, ok4;
+
+    uint x = x_y.at(0).toUInt(&ok1);
+    uint y = x_y.at(1).toUInt(&ok2);
+    uint w = xy_w_h.at(1).toUInt(&ok3);
+    uint h = xy_w_h.at(2).toUInt(&ok4);
+
+    if (!ok1 || !ok2 || !ok3 || !ok4 || w == 0 || h == 0)
+    {
+        throw BadArgsException("bad area");
+    }
+
+    return QRect(QPoint(x, y), QSize(w, h));
+}
+
 void Arguments::processShortOption(QChar ch, QStringListIterator & i)
     throw (BadArgsException)
 {
-    Filter * cur;
+    Filter * cur = 0;
 
     SobelFilter::WhatDetect argWhat1;
     SobelFilter::WhatDetect argWhat2;
@@ -342,7 +382,11 @@ void Arguments::processShortOption(QChar ch, QStringListIterator & i)
             throw BadArgsException(QObject::tr("unrecognized option"));
     }
 
-    filters.append(cur);
+    if (cur != 0)
+    {
+        cur->setArea(getArea(i));
+        filters.append(cur);
+    }
 }
 
 void Arguments::processLongOption(const QString & arg,

@@ -18,15 +18,15 @@ public:
     RotateFilter(double aAngle);
     ~RotateFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 
 private:
-    QPointF rotate(int x, int y, QRect area) const;
-    QPointF rotateInverted(int x, int y, QRect area) const;
+    QPointF rotate(int x, int y) const;
+    QPointF rotateInverted(int x, int y) const;
 
-    void setPixel(QRgb * to, const QRgb * rgb, QRect area,
+    void setPixel(QRgb * to, const QRgb * rgb,
         uint x, uint y, uint w, uint h) const;
 };
 

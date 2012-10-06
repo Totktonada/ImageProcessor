@@ -17,7 +17,7 @@ public:
     CustomFilter(double * aKernel, uint aSize);
     ~CustomFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 

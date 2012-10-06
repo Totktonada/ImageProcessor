@@ -31,7 +31,7 @@ public:
     SobelFilter(Edge aEdge, WhatDetect aWhat = Both);
     ~SobelFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 

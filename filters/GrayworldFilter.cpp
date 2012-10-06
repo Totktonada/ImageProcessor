@@ -12,7 +12,7 @@ GrayworldFilter::~GrayworldFilter()
 {}
 
 /* Based on http://scien.stanford.edu/pages/labsite/2000/psych221/projects/00/trek/Matlab/GrayWorldFun.m */
-QImage * GrayworldFilter::filter(const QImage & source, QRect area) const
+QImage * GrayworldFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 

@@ -16,18 +16,20 @@ AverageSobelFilter::AverageSobelFilter(SobelFilter::WhatDetect aWhatH,
 AverageSobelFilter::~AverageSobelFilter()
 {}
 
-QImage * AverageSobelFilter::filter(const QImage & source,
-    QRect area) const
+QImage * AverageSobelFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 
     SobelFilter fx(SobelFilter::Vertical, whatV);
     SobelFilter fy(SobelFilter::Horizontal, whatH);
 
-    QImage * diffX = fx.filter(source, area);
+    fx.setArea(area);
+    fy.setArea(area);
+
+    QImage * diffX = fx.filter(source);
     QRgb * bitsDiffX = reinterpret_cast<QRgb *>(diffX->bits());
 
-    QImage * diffY = fy.filter(source, area);
+    QImage * diffY = fy.filter(source);
     QRgb * bitsDiffY = reinterpret_cast<QRgb *>(diffY->bits());
 
     for (int y = area.y(); y < area.y() + area.height(); ++y)

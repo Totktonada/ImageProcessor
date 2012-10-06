@@ -86,11 +86,17 @@ void ImageView::startFilter(Filter * f)
     uint w = image->width();
     uint h = image->height();
 
+    f->setArea(Utils::selectImageCoords(getSelect()));
+
     if (! f->isApplicable(w, h))
     {
+        QRect area = f->getArea();
+
         QMessageBox::warning(this, tr("ImageProcessor"),
             tr("Too small image (%1x%2), pointed filter"
-                " not applicable.").arg(w).arg(h));
+            " with pointed area (%3x%4+%5+%6) not applicable")
+                .arg(w).arg(h).arg(area.x()).arg(area.y())
+                .arg(area.width()).arg(area.height()));
 
         return;
     }
@@ -99,9 +105,7 @@ void ImageView::startFilter(Filter * f)
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    QRect area = Utils::selectImageCoords(getSelect());
-
-    setImage(f->filter(*image, area));
+    setImage(f->filter(*image));
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();

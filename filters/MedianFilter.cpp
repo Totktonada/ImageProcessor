@@ -15,19 +15,19 @@ MedianFilter::~MedianFilter()
 {}
 
 /* TODO: RGB->YUV, filter, YUV->RGB. */
-QImage * MedianFilter::filter(const QImage & source, QRect area) const
+QImage * MedianFilter::filter(const QImage & source) const
 {
     if (radius == 1)
     {
-        return simpleFilter(source, area);
+        return simpleFilter(source);
     }
     else if (radius <= 6)
     {
-        return histogramSortFilter(source, area);
+        return histogramSortFilter(source);
     }
     else /* (radius >= 7) */
     {
-        return constantTimeFilter(source, area);
+        return constantTimeFilter(source);
     }
 }
 
@@ -36,8 +36,7 @@ uint MedianFilter::getWindowRadius() const
     return radius;
 }
 
-QImage * MedianFilter::simpleFilter(const QImage & source,
-    QRect area) const
+QImage * MedianFilter::simpleFilter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();
@@ -118,8 +117,7 @@ QImage * MedianFilter::simpleFilter(const QImage & source,
     return dest;
 }
 
-QImage * MedianFilter::histogramSortFilter(const QImage & source,
-    QRect area) const
+QImage * MedianFilter::histogramSortFilter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();
@@ -156,8 +154,7 @@ QImage * MedianFilter::histogramSortFilter(const QImage & source,
     return dest;
 }
 
-QImage * MedianFilter::constantTimeFilter(const QImage & source,
-    QRect area) const
+QImage * MedianFilter::constantTimeFilter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();

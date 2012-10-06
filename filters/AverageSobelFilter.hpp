@@ -17,7 +17,7 @@ public:
         SobelFilter::WhatDetect aWhatV = SobelFilter::Both);
     ~AverageSobelFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 };

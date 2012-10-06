@@ -11,20 +11,26 @@
 #define MEDIAN_RADIUS 5
 
 GlowingEdgeFilter::GlowingEdgeFilter()
-    : median(MEDIAN_RADIUS),
-    sobel()
-{}
+{
+    median = new MedianFilter(MEDIAN_RADIUS);
+    sobel = new AverageSobelFilter();
+}
 
 GlowingEdgeFilter::~GlowingEdgeFilter()
-{}
+{
+    delete median;
+    delete sobel;
+}
 
-QImage * GlowingEdgeFilter::filter(const QImage & source,
-    QRect area) const
+QImage * GlowingEdgeFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 
-    QImage * medianed = median.filter(source, area);
-    QImage * sobeled = sobel.filter(*medianed, area);
+    median->setArea(area);
+    sobel->setArea(area);
+
+    QImage * medianed = median->filter(source);
+    QImage * sobeled = sobel->filter(*medianed);
     delete medianed;
 
     QRgb * to = reinterpret_cast<QRgb *>(sobeled->bits());
@@ -66,6 +72,6 @@ QImage * GlowingEdgeFilter::filter(const QImage & source,
 uint GlowingEdgeFilter::getWindowRadius() const
 {
     return Utils::max2<uint>(
-        median.getWindowRadius(),
-        sobel.getWindowRadius());
+        median->getWindowRadius(),
+        sobel->getWindowRadius());
 }

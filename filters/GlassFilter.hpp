@@ -14,7 +14,7 @@ public:
     GlassFilter(double aRadius);
     ~GlassFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 

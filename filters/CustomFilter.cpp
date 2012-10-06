@@ -15,7 +15,7 @@ CustomFilter::CustomFilter(double * aKernel, uint aSize)
 CustomFilter::~CustomFilter()
 {}
 
-QImage * CustomFilter::filter(const QImage & source, QRect area) const
+QImage * CustomFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();

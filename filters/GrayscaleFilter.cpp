@@ -10,7 +10,7 @@ GrayscaleFilter::GrayscaleFilter()
 GrayscaleFilter::~GrayscaleFilter()
 {}
 
-QImage * GrayscaleFilter::filter(const QImage & source, QRect area) const
+QImage * GrayscaleFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 

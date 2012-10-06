@@ -24,12 +24,12 @@ public:
     WaveFilter(double aRadius, double aPeriod, Orientation aOrientation);
     ~WaveFilter();
 
-    QImage * filter(const QImage & source, QRect area) const;
+    QImage * filter(const QImage & source) const;
 
     uint getWindowRadius() const;
 
 private:
-    QRgb getPixel(const QRgb * rgb, QRect area,
+    QRgb getPixel(const QRgb * rgb,
         uint x, uint y, uint w, uint h) const;
 };
 

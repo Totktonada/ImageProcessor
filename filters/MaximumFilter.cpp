@@ -14,7 +14,7 @@ MaximumFilter::~MaximumFilter()
 {}
 
 /* TODO: RGB->YUV, filter, YUV->RGB. */
-QImage * MaximumFilter::filter(const QImage & source, QRect area) const
+QImage * MaximumFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();

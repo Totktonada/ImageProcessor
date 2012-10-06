@@ -10,7 +10,7 @@ GlassFilter::GlassFilter(double aRadius)
 GlassFilter::~GlassFilter()
 {}
 
-QImage * GlassFilter::filter(const QImage & source, QRect area) const
+QImage * GlassFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();

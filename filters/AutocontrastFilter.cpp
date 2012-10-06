@@ -20,8 +20,7 @@ AutocontrastFilter::AutocontrastFilter(double aSkipL, double aSkipR)
 AutocontrastFilter::~AutocontrastFilter()
 {}
 
-QImage * AutocontrastFilter::filter(const QImage & source,
-    QRect area) const
+QImage * AutocontrastFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 

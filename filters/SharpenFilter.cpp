@@ -7,17 +7,22 @@
 #include "../Constants.hpp"
 
 SharpenFilter::SharpenFilter()
-    : sobel()
-{}
+{
+    sobel = new AverageSobelFilter();
+}
 
 SharpenFilter::~SharpenFilter()
-{}
+{
+    delete sobel;
+}
 
-QImage * SharpenFilter::filter(const QImage & source, QRect area) const
+QImage * SharpenFilter::filter(const QImage & source) const
 {
     uint w = source.width();
 
-    QImage * dest = sobel.filter(source, area);
+    sobel->setArea(area);
+
+    QImage * dest = sobel->filter(source);
     QRgb * to = reinterpret_cast<QRgb *>(dest->bits());
 
     const QRgb * rgb =
@@ -47,5 +52,5 @@ QImage * SharpenFilter::filter(const QImage & source, QRect area) const
 
 uint SharpenFilter::getWindowRadius() const
 {
-    return sobel.getWindowRadius();
+    return sobel->getWindowRadius();
 }

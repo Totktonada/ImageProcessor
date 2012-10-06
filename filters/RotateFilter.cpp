@@ -13,7 +13,7 @@ RotateFilter::RotateFilter(double aAngle)
 RotateFilter::~RotateFilter()
 {}
 
-QImage * RotateFilter::filter(const QImage & source, QRect area) const
+QImage * RotateFilter::filter(const QImage & source) const
 {
     uint w = source.width();
     uint h = source.height();
@@ -32,13 +32,11 @@ QImage * RotateFilter::filter(const QImage & source, QRect area) const
         }
     }
 
-    QPointF to1 = rotateInverted(area.x(), area.y(), area);
-    QPointF to2 = rotateInverted(area.x() + area.width() - 1,
-        area.y(), area);
-    QPointF to3 = rotateInverted(area.x(),
-        area.y() + area.height() - 1, area);
+    QPointF to1 = rotateInverted(area.x(), area.y());
+    QPointF to2 = rotateInverted(area.x() + area.width() - 1, area.y());
+    QPointF to3 = rotateInverted(area.x(), area.y() + area.height() - 1);
     QPointF to4 = rotateInverted(area.x() + area.width() - 1,
-        area.y() + area.height() - 1, area);
+        area.y() + area.height() - 1);
 
     int minX = Utils::normalize<int>(Utils::min4<double>(
         to1.x(), to2.x(), to3.x(), to4.x()), w - 1);
@@ -53,7 +51,7 @@ QImage * RotateFilter::filter(const QImage & source, QRect area) const
     {
         for (int x = minX; x <= maxX; ++x)
         {
-            QPointF from = rotate(x, y, area);
+            QPointF from = rotate(x, y);
 
             if (from.x() >= area.x() &&
                 from.x() < area.x() + area.width() &&
@@ -86,7 +84,7 @@ uint RotateFilter::getWindowRadius() const
  * fromX = x*cos(angle) - y*sin(angle)
  * fromY = x*sin(angle) + y*cos(angle)
  * ---- */
-QPointF RotateFilter::rotate(int x, int y, QRect area) const
+QPointF RotateFilter::rotate(int x, int y) const
 {
     /* New coordinates */
     double ncX = x - area.x() + 0.5 - area.width() / 2.0;
@@ -101,7 +99,7 @@ QPointF RotateFilter::rotate(int x, int y, QRect area) const
     return QPointF(fromX, fromY);
 }
 
-QPointF RotateFilter::rotateInverted(int x, int y, QRect area) const
+QPointF RotateFilter::rotateInverted(int x, int y) const
 {
     /* New coordinates */
     double ncX = x - area.x() + 0.5 - area.width() / 2.0;
