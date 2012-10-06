@@ -18,12 +18,12 @@ public:
     uint getWindowRadius() const;
 
 private:
-    uchar median(QVector<uchar> & vector, uint size) const;
+    QImage * simpleFilter(const QImage & source, QRect area) const;
 
-    QRgb processWindow(QVector<uchar> & windowR,
-        QVector<uchar> & windowG, QVector<uchar> & windowB,
-        uint wMatrixSize, const QRgb * rgb,
-        uint x, uint y, uint w, uint h) const;
+    QImage * histogramSortFilter(const QImage & source, QRect area) const;
+
+    /* Nearly constant relatively window size. */
+    QImage * constantTimeFilter(const QImage & source, QRect area) const;
 };
 
 #endif /* MEDIAN_FILTER_HPP_SENTRY */

@@ -15,6 +15,7 @@ HEADERS += exceptions/Exception.hpp \
            Utils.hpp \
            ERgb.hpp \
            Arguments.hpp \
+           Histogram.hpp \
            Algorithms.hpp \
            filters/Filter.hpp \
            filters/AutolevelsFilter.hpp \
@@ -41,6 +42,7 @@ HEADERS += exceptions/Exception.hpp \
 
 SOURCES += Arguments.cpp \
            Algorithms.cpp \
+           Histogram.cpp \
            filters/AutolevelsFilter.cpp \
            filters/AutocontrastFilter.cpp \
            filters/GrayscaleFilter.cpp \

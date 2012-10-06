@@ -232,36 +232,6 @@ uchar Algorithms::networkSortMedian(uchar array[])
     return array[4];
 }
 
-uchar Algorithms::histogramMedian(const uchar array[], uint size)
-{
-    uint histogram[COLORS];
-
-    for (uint i = 0; i < COLORS; ++i)
-    {
-        histogram[i] = 0;
-    }
-
-    for (uint i = 0; i < size; ++i)
-    {
-        ++histogram[array[i]];
-    }
-
-    uint cur = 0;
-
-    for (uint i = 0; i < COLORS; ++i)
-    {
-        cur += histogram[i];
-
-        if (cur > size / 2)
-        {
-            return i;
-        }
-    }
-
-    /* Not possible */
-    return CMAX;
-}
-
 QRgb Algorithms::bilinearInterpolatedValue(const QRgb * rgb,
     double x, double y, uint w, uint h)
 {
