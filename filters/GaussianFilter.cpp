@@ -52,7 +52,7 @@ QImage * GaussianFilter::filter(const QImage & source) const
         reinterpret_cast<const QRgb *>(source.constBits());
 
     QImage * mediumImage = new QImage(source);
-    QRgb * medium = reinterpret_cast<QRgb *>(dest->bits());
+    QRgb * medium = reinterpret_cast<QRgb *>(mediumImage->bits());
 
     for (int y = area.y(); y < area.y() + area.height(); ++y)
     {
@@ -91,7 +91,7 @@ QRgb GaussianFilter::processRow(const QRgb * rgb,
 
     uint base = COLORS;
 
-    for (uint wx = 1; wx < wRadius; ++wx)
+    for (uint wx = 1; wx <= wRadius; ++wx)
     {
         pixel1 = rgb[Utils::coordinate(x - wx, y, w, h)];
         pixel2 = rgb[Utils::coordinate(x + wx, y, w, h)];
@@ -121,7 +121,7 @@ QRgb GaussianFilter::processColumn(const QRgb * rgb,
 
     uint base = COLORS;
 
-    for (uint wy = 1; wy < wRadius; ++wy)
+    for (uint wy = 1; wy <= wRadius; ++wy)
     {
         pixel1 = rgb[Utils::coordinate(x, y - wy, w, h)];
         pixel2 = rgb[Utils::coordinate(x, y + wy, w, h)];
@@ -138,44 +138,6 @@ QRgb GaussianFilter::processColumn(const QRgb * rgb,
 
     return qRgb(resR, resG, resB);
 }
-
-#if 0
-QRgb GaussianFilter::processWindow(uint wRadius, const QRgb * rgb,
-    uint x, uint y, uint w) const
-{
-    double lineR, resR = 0;
-    double lineG, resG = 0;
-    double lineB, resB = 0;
-
-    QRgb pixel;
-
-    double factor;
-
-    for (int wy = -wRadius; wy < (int) wRadius; ++wy)
-    {
-        lineR = lineG = lineB = 0;
-
-        for (int wx = -wRadius; wx < (int) wRadius; ++wx)
-        {
-            pixel = rgb[(y + wy) * w + (x + wx)];
-
-            factor = kernel[wx < 0 ? -wx : wx];
-
-            lineR += factor * qRed(pixel);
-            lineG += factor * qGreen(pixel);
-            lineB += factor * qBlue(pixel);
-        }
-
-        factor = kernel[wy < 0 ? -wy : wy];
-
-        resR += factor * lineR;
-        resG += factor * lineG;
-        resB += factor * lineB;
-    }
-
-    return qRgb(resR, resG, resB);
-}
-#endif
 
 void GaussianFilter::setColorCache(double * kernel)
 {
