@@ -39,9 +39,12 @@ QImage * AverageSobelFilter::filter(const QImage & source) const
             QRgb p1 = bitsDiffX[y * w + x];
             QRgb p2 = bitsDiffY[y * w + x];
 
-            uchar resR = qSqrt(qPow(qRed(p1), 2) + qPow(qRed(p2), 2));
-            uchar resG = qSqrt(qPow(qGreen(p1), 2) + qPow(qGreen(p2), 2));
-            uchar resB = qSqrt(qPow(qBlue(p1), 2) + qPow(qBlue(p2), 2));
+            uchar resR = Utils::normalize<int>(
+                qSqrt(qPow(qRed(p1), 2) + qPow(qRed(p2), 2)), CMAX);
+            uchar resG = Utils::normalize<int>(
+                qSqrt(qPow(qGreen(p1), 2) + qPow(qGreen(p2), 2)), CMAX);
+            uchar resB = Utils::normalize<int>(
+                qSqrt(qPow(qBlue(p1), 2) + qPow(qBlue(p2), 2)), CMAX);
 
             bitsDiffX[y * w + x] = qRgb(resR, resG, resB);
         }
